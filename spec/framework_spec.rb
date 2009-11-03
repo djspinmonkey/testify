@@ -4,7 +4,7 @@ describe "Testify::Frameworks" do
   before :each do
     # Destroy any Framework classes we just created...
     Testify::Frameworks::Base.subclasses.each do |klass|
-      Object.class_exec { remove_const klass.name.to_s } unless klass.name.include? ':'
+      destroy_class klass unless klass.name.include? ':'
     end
 
     # ...and forget they existed.

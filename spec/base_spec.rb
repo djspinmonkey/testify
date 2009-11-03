@@ -5,11 +5,12 @@ describe "Testify::Base" do
   before :each do
     Testify::Frameworks::Base.forget_subclasses
 
+    destroy_class :SomeTestFramework
     class SomeTestFramework < Testify::Frameworks::Base
       aka :some_test_framework
     end
 
-    # remove_const :TesterApp
+    destroy_class :TesterApp
     class TesterApp < Testify::Base
     end
 
