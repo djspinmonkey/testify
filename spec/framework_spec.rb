@@ -11,5 +11,26 @@ describe "Testify::Frameworks" do
     Testify::Frameworks::all().should include(SampleFramework1, SampleFramework2)
   end
 
+  it "should be able to specify known aliases" do
+    class SneakyMcGee < Testify::Frameworks::Base
+      aka :mr_sneaks
+    end
+
+    Testify::Frameworks::find(:mr_sneaks).should equal SneakyMcGee
+  end
+
+  it "should raise an ArgumentError if a given alias is already taken" do
+    class AwesomeTestFramework < Testify::Frameworks::Base
+      aka :awesome
+    end
+
+    lambda {
+      class AlsoAwesome < Testify::Frameworks::Base
+        aka :awesome
+      end
+    }.should raise_error(ArgumentError)
+
+  end
+
 end
 
