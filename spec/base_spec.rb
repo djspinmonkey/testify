@@ -16,11 +16,22 @@ describe "Testify::Base" do
     }.should_not raise_error
   end
 
-  it "should be able to specify a framework by alias" do
+  it "should be able to specify a test framework by alias" do
     class TesterApp
       framework :rspec
     end
     @tester.framework.should eql Testify::Frameworks::RSpec
+  end
+
+  it "should be able to specify a test framework by class" do
+    class SomeTestFramework < Testify::Frameworks::Base
+    end
+
+    class TesterApp
+      framework SomeTestFramework
+    end
+
+    @tester.framework.should eql SomeTestFramework
   end
 
   describe '#run' do
