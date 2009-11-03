@@ -25,6 +25,15 @@ module Testify
       @@aliases = {}
 
       ##
+      # Clear all info about known Frameworks.  Usefull for testing, but it is
+      # unlikely you would use it for much else.
+      #
+      def self.forget_subclasses
+        @@subclasses = []
+        @@aliases = {}
+      end
+
+      ##
       # Specifies a symbol (or several) that a given framework might be known
       # by.  For example, if you wanted to refer to RSpec by :rspec or :spec,
       # you might do this:
