@@ -1,6 +1,6 @@
 = testify
 
-Description goes here.
+Testify is a test framework framework.  Think "Rack for testing."
 
 == Note on Patches/Pull Requests
  
@@ -10,9 +10,9 @@ Description goes here.
   future version unintentionally.
 * Commit, do not mess with rakefile, version, or history.
   (if you want to have your own version, that is fine but
-   bump version in a commit by itself I can ignore when I pull)
+  bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
 == Copyright
 
-Copyright (c) 2009 John Hyland. See LICENSE for details.
+Copyright (c) 2009 John Hyland and Emily Price. See LICENSE for details.
