@@ -2,7 +2,14 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Testify::Base" do
 
-  before do
+  before :each do
+    Testify::Frameworks::Base.forget_subclasses
+
+    class SomeTestFramework < Testify::Frameworks::Base
+      aka :some_test_framework
+    end
+
+    # remove_const :TesterApp
     class TesterApp < Testify::Base
     end
 
@@ -18,14 +25,14 @@ describe "Testify::Base" do
 
   it "should be able to specify a test framework by alias" do
     class TesterApp
-      framework :rspec
+      framework :some_test_framework
     end
-    @tester.framework.should eql Testify::Frameworks::RSpec
+
+    TesterApp.framework.should eql SomeTestFramework
+    @tester.framework.should   eql SomeTestFramework
   end
 
   it "should be able to specify a test framework by class" do
-    class SomeTestFramework < Testify::Frameworks::Base
-    end
 
     class TesterApp
       framework SomeTestFramework
