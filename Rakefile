@@ -6,7 +6,7 @@ begin
   Jeweler::Tasks.new do |gem|
     gem.name = "testify"
     gem.summary = %Q{Testify is a test framework framework.  Think "Rack for testing."}
-    gem.description = %Q{TODO: longer description of your gem}
+    #gem.description = %Q{TODO: longer description of your gem}
     gem.email = "github@djspinmonkey.com"
     gem.homepage = "http://github.com/djspinmonkey/testify"
     gem.authors = ["John Hyland", "Emily Price"]
