@@ -3,10 +3,10 @@ require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 describe "Testify::Base" do
 
   before :each do
-    Testify::Frameworks::Base.forget_subclasses
+    Testify::Framework::Base.forget_subclasses
 
     destroy_class :SomeTestFramework
-    class SomeTestFramework < Testify::Frameworks::Base
+    class SomeTestFramework < Testify::Framework::Base
       aka :some_test_framework
     end
 
@@ -45,6 +45,22 @@ describe "Testify::Base" do
   describe '#run' do
     it "should return a ResultSet" do
       @tester.run.should be_a(Testify::ResultSet)
+    end
+  end
+
+  context "just created" do
+    it "should have a nil status" do
+      @tester.status.should be_nil
+    end
+  end
+
+  context "after running" do
+    before do
+      @tester.run
+    end
+
+    it "should have a status" do
+      @tester.status.should be_a_kind_of Testify::Status::Base
     end
   end
 

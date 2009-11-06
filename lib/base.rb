@@ -4,7 +4,7 @@ module Testify
   class Base
     def self.framework (fw = nil)
       class_eval do
-        @@framework = Testify::Frameworks::find(fw) if fw
+        @@framework = Testify::Framework::find(fw) if fw
         @@framework
       end
     end
@@ -14,7 +14,11 @@ module Testify
     end
 
     def run
-      return ResultSet.new
+      @last_run = ResultSet.new
+    end
+
+    def status
+      @last_run.nil? ? nil : @last_run.status
     end
 
   end
