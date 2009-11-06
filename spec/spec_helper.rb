@@ -3,6 +3,8 @@ $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
 require 'base'
 require 'framework/base'
 require 'framework/rspec_adaptor'
+require 'status/base'
+require 'status/passed'
 require 'spec'
 require 'spec/autorun'
 

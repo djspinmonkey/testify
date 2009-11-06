@@ -1,8 +1,5 @@
 module Testify
   class ResultSet
-
-    def status
-    end
-
+    attr_accessor :status
   end
 end

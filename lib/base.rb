@@ -15,6 +15,9 @@ module Testify
 
     def run
       @last_run = ResultSet.new
+      @last_run.status = Testify::Status::Passed.new
+
+      @last_run
     end
 
     def status
