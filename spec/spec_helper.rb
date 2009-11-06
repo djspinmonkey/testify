@@ -1,5 +1,6 @@
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 $LOAD_PATH.unshift(File.join(File.dirname(__FILE__), '..', 'lib'))
+require 'util/aliasable'
 require 'base'
 require 'framework/base'
 require 'framework/rspec_adaptor'

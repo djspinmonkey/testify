@@ -27,7 +27,7 @@ describe "Testify::Framework" do
       aka :awesome
     end
 
-    Testify::Framework::find(:awesome).should equal AwesomeTestFramework
+    Testify::Framework::Base.find(:awesome).should equal AwesomeTestFramework
   end
 
   it "should raise an ArgumentError if a given alias is already taken" do
@@ -41,6 +41,13 @@ describe "Testify::Framework" do
       end
     }.should raise_error(ArgumentError)
 
+  end
+
+  it "should be able to specify a status ranking" do
+    pending "make statuses aliasable"
+    class SampleTestFramework < Testify::Framework::Base
+      statuses :passed, :failed, :error
+    end
   end
 
 end

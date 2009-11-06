@@ -39,7 +39,8 @@ describe "Testify::Base" do
       framework SomeTestFramework
     end
 
-    @tester.framework.should eql SomeTestFramework
+    TesterApp.framework.should eql SomeTestFramework
+    @tester.framework.should   eql SomeTestFramework
   end
 
   describe '#run' do

@@ -4,7 +4,7 @@ module Testify
   class Base
     def self.framework (fw = nil)
       class_eval do
-        @@framework = Testify::Framework::find(fw) if fw
+        @@framework = Testify::Framework::Base.find(fw) if fw
         @@framework
       end
     end
