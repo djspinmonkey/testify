@@ -11,13 +11,15 @@ describe "Testify::Frameworks" do
     Testify::Frameworks::Base.forget_subclasses
   end
 
-  it "should keep track of all subclasses of ::Base" do
+  it "should keep track of all subclasses (and sub-sub, etc. classes) of ::Base" do
     class SampleFramework1 < Testify::Frameworks::Base
     end
     class SampleFramework2 < Testify::Frameworks::Base
     end
+    class SampleFramework3 < SampleFramework2
+    end
 
-    Testify::Frameworks::all().should include(SampleFramework1, SampleFramework2)
+    Testify::Frameworks::all().should include(SampleFramework1, SampleFramework2, SampleFramework3)
   end
 
   it "should be able to specify known aliases" do
