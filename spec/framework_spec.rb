@@ -44,10 +44,15 @@ describe "Testify::Framework" do
   end
 
   it "should be able to specify a status ranking" do
-    pending "make statuses aliasable"
-    class SampleTestFramework < Testify::Framework::Base
-      statuses :passed, :failed, :error
+    class Exploded < Testify::Status::Base
+      aka :exploded
     end
+
+    class SampleTestFramework < Testify::Framework::Base
+      statuses :passed, :failed, :exploded
+    end
+
+    SampleTestFramework.statuses.should eql [ Testify::Status::Passed, Testify::Status::Failed, Exploded ]
   end
 
 end

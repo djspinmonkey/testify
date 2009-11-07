@@ -28,6 +28,17 @@ module Testify
 
       def self.inherited(sub) #nodoc;
         @@subclasses.push sub
+        sub.statuses :passed, :pending, :failed, :error # default order
+      end
+
+      def self.statuses(*stats)
+        class_eval do
+          if not stats.empty?
+            @@statuses = []
+            stats.map { |stat| @@statuses.push Testify::Status::Base.find(stat) }
+          end
+          @@statuses
+        end
       end
     end
   end
