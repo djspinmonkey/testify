@@ -43,12 +43,6 @@ describe "Testify::Base" do
     @tester.framework.should   eql SomeTestFramework
   end
 
-  describe '#run' do
-    it "should return a ResultSet" do
-      @tester.run.should be_a(Testify::ResultSet)
-    end
-  end
-
   context "just created" do
     it "should have a nil status" do
       @tester.status.should be_nil

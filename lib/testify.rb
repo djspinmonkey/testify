@@ -5,7 +5,6 @@ require 'util'
 require 'status'
 require 'framework'
 require 'base'
-require 'result_set'
 
 # Put the LOAD_PATH back the way it was.
 $LOAD_PATH.shift
