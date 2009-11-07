@@ -1,8 +1,8 @@
 module Testify
   module Aliasable
     def self.extended (klass) #nodoc;
-      klass.class_eval do
-        @@aliases = {}
+      klass.class_exec do
+        class_variable_set(:@@aliases, {})
       end
     end
 
@@ -10,18 +10,18 @@ module Testify
     # When passed a class, just returns it.  When passed a symbol that is an
     # alias for a class, returns that class.
     #
-    #   Testify::Framework::find(:rspec)  # => Testify::Framework::RSpec
+    #   Testify::Framework::Base.find(:rspec)  # => Testify::Framework::RSpec
     #
     def find (klass)
       return klass if klass.kind_of? Class
-      @@aliases[klass]
+      class_variable_get(:@@aliases)[klass] or raise ArgumentError "Could not find alias #{klass}"
     end
 
     ##
     # Forget all known aliases.
     #
     def reset_aliases
-      @@aliases.clear
+      class_variable_get(:@@aliases).clear
     end
 
     ##
@@ -35,11 +35,9 @@ module Testify
     #   end
     #
     def aka (*names)
-      class_eval do
-        names.each do |name| 
-          raise ArgumentError, "Called aka with an alias that is already taken." if @@aliases.include? name
-          @@aliases[name] = self
-        end
+      names.each do |name| 
+        raise ArgumentError, "Called aka with an alias that is already taken." if class_variable_get(:@@aliases).include? name
+        class_variable_get(:@@aliases)[name] = self
       end
     end
 
@@ -47,7 +45,7 @@ module Testify
     # Return a hash of known aliases to Class objects
     #
     def aliases
-      @@aliases.dup
+      class_variable_get(:@@aliases).dup
     end
 
   end
