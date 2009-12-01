@@ -10,34 +10,16 @@ module Testify
     #
     class Base
       extend Testify::Aliasable
+      extend Testify::SubclassAware
 
-      @@subclasses = []
-
-      ##
-      # Clear all info about known Framework.  Usefull for testing, but it is
-      # unlikely you would use it for much else.
-      #
-      def self.forget_subclasses
-        @@subclasses = []
-        reset_aliases
-      end
-
-      def self.subclasses #nodoc;
-        @@subclasses.dup
-      end
-
-      def self.inherited(sub) #nodoc;
-        @@subclasses.push sub
-        sub.statuses :passed, :pending, :failed, :error # default order
-      end
+      DEFAULT_STATUSES = [ :passed, :pending, :failed, :error ].collect { |status| Testify::Status::Base.find(status) }
 
       def self.statuses(*stats)
         class_eval do
-          if not stats.empty?
-            @@statuses = []
-            stats.map { |stat| @@statuses.push Testify::Status::Base.find(stat) }
+          if stats.any?
+            @@statuses = stats.collect { |stat| @@statuses.push Testify::Status::Base.find(stat) }
           end
-          @@statuses
+          @@statuses || DEFAULT_STATUSES
         end
       end
     end
