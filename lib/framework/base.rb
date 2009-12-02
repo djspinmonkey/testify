@@ -14,12 +14,18 @@ module Testify
 
       DEFAULT_STATUSES = [ :passed, :pending, :failed, :error ].collect { |status| Testify::Status::Base.find(status) }
 
+      class << self; alias :old_inherited :inherited end
+      def self.inherited(sub)
+        old_inherited(sub)
+        sub.class_eval { @@statuses = DEFAULT_STATUSES.dup }
+      end
+
       def self.statuses(*stats)
         class_eval do
           if stats.any?
             @@statuses = stats.collect { |stat| @@statuses.push Testify::Status::Base.find(stat) }
           end
-          @@statuses || DEFAULT_STATUSES
+          @@statuses || default_statuses
         end
       end
     end
