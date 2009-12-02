@@ -20,7 +20,7 @@ module Testify
     ##
     # Forget all known aliases.
     #
-    def reset_aliases
+    def forget_aliases
       class_variable_get(:@@aliases).clear
     end
 
