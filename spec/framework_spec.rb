@@ -1,15 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
 describe "Testify::Framework" do
-  before :each do
-    # Destroy any Framework classes we just created...
-    Testify::Framework::Base.subclasses.each do |klass|
-      destroy_class klass unless klass.name.include? ':'
-    end
-
-    # ...and forget they existed.
-    Testify::Framework::Base.forget_subclasses
-  end
 
   it "should know about all Framework classes" do
     class SampleFramework < Testify::Framework::Base
@@ -27,13 +18,13 @@ describe "Testify::Framework" do
   end
 
   it "should raise an ArgumentError if a given alias is already taken" do
-    class AwesomeTestFramework < Testify::Framework::Base
-      aka :awesome
+    class RepeatedAliasTestFramework < Testify::Framework::Base
+      aka :repeat
     end
 
     lambda {
-      class AlsoAwesome < Testify::Framework::Base
-        aka :awesome
+      class ThisIsTheRepeat < Testify::Framework::Base
+        aka :repeat
       end
     }.should raise_error(ArgumentError)
 
