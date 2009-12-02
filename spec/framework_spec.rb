@@ -30,16 +30,20 @@ describe "Testify::Framework" do
 
   end
 
-  it "should be able to specify a status ranking" do
+  it "should be able to specify a status ranking without affecting other Frameworks" do
     class Exploded < Testify::Status::Base
       aka :exploded
     end
 
-    class SampleTestFramework < Testify::Framework::Base
+    class VanillaTestFramework < Testify::Framework::Base
+    end
+
+    class ChangedTestFramework < Testify::Framework::Base
       statuses :passed, :failed, :exploded
     end
 
-    SampleTestFramework.statuses.should eql [ Testify::Status::Passed, Testify::Status::Failed, Exploded ]
+    VanillaTestFramework.statuses.should eql Testify::Framework::DEFAULT_STATUSES
+    ChangedTestFramework.statuses.should eql [ Testify::Status::Passed, Testify::Status::Failed, Exploded ]
   end
 
 end
