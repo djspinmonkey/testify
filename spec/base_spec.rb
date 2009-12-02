@@ -4,6 +4,7 @@ describe "Testify::Base" do
 
   before :each do
     Testify::Framework::Base.forget_subclasses
+    Testify::Framework::Base.forget_aliases
 
     destroy_class :SomeTestFramework
     class SomeTestFramework < Testify::Framework::Base
