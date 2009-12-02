@@ -14,7 +14,7 @@ module Testify
     #
     def find (klass)
       return klass if klass.kind_of? Class
-      class_variable_get(:@@aliases)[klass] or raise ArgumentError "Could not find alias #{klass}"
+      class_variable_get(:@@aliases)[klass] or raise ArgumentError, "Could not find alias #{klass}"
     end
 
     ##
