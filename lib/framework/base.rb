@@ -11,8 +11,8 @@ module Testify
     # all known frameworks and any aliases they're known by.
     #
     class Base
-      extend Testify::Aliasable
-      extend Testify::SubclassAware
+      extend Aliasable
+      extend SubclassAware
 
       # Annoying alias chain required to preserve inerited() methods from modules
       class << self; alias :old_inherited :inherited end
