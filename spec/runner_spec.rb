@@ -11,11 +11,11 @@ describe "Testify::Runner" do
       aka :some_test_framework
     end
 
-    destroy_class :TesterApp
-    class TesterApp < Testify::Runner
+    destroy_class :SomeTestRunner
+    class SomeTestRunner < Testify::Runner
     end
 
-    @tester = TesterApp.new
+    @tester = SomeTestRunner.new
   end
 
   it "should be able to be subclassed" do
@@ -26,22 +26,22 @@ describe "Testify::Runner" do
   end
 
   it "should be able to specify a test framework by alias" do
-    class TesterApp
+    class SomeTestRunner
       framework :some_test_framework
     end
 
-    TesterApp.framework.should eql SomeTestFramework
-    @tester.framework.should   eql SomeTestFramework
+    SomeTestRunner.framework.should eql SomeTestFramework
+    @tester.framework.should        eql SomeTestFramework
   end
 
   it "should be able to specify a test framework by class" do
 
-    class TesterApp
+    class SomeTestRunner
       framework SomeTestFramework
     end
 
-    TesterApp.framework.should eql SomeTestFramework
-    @tester.framework.should   eql SomeTestFramework
+    SomeTestRunner.framework.should eql SomeTestFramework
+    @tester.framework.should        eql SomeTestFramework
   end
 
   context "just created" do
