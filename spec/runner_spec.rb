@@ -1,6 +1,6 @@
 require File.expand_path(File.dirname(__FILE__) + '/spec_helper')
 
-describe "Testify::Base" do
+describe "Testify::Runner" do
 
   before :each do
     Testify::Framework::Base.forget_subclasses
@@ -12,7 +12,7 @@ describe "Testify::Base" do
     end
 
     destroy_class :TesterApp
-    class TesterApp < Testify::Base
+    class TesterApp < Testify::Runner
     end
 
     @tester = TesterApp.new
@@ -20,7 +20,7 @@ describe "Testify::Base" do
 
   it "should be able to be subclassed" do
     lambda {
-      class AnotherTesterApp < Testify::Base
+      class AnotherTesterApp < Testify::Runner
       end
     }.should_not raise_error
   end

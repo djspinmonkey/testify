@@ -1,5 +1,5 @@
 module Testify
-  class Base
+  class Runner
     attr_accessor :status
 
     def self.framework (fw = nil)
