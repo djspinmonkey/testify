@@ -9,6 +9,14 @@ implement a +call+ method.  In typical usage, the stack will be assembled by a
 Runner and consist of a Framework and optionally some middleware, but this
 isn't a requirement.
 
+Testify is hosted on gemcutter, so installation should be as simple as
+
+  sudo gem install testify
+
+The source and detailed documentation can be found at
+http://github.com/djspinmonkey/testify and
+http://rdoc.info/projects/djspinmonkey/testify, respectively.
+
 == Testify Applications
 
 A Testify Application is any object that implements a +call+ method accepting a
