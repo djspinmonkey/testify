@@ -21,15 +21,15 @@ of TestResult objects.
 The +env+ hash should be an instance of Hash with one of the following keys
 defined:
 
-[+files+] an array of filenames containing the tests
-[+path+] a path containing the files containing the tests
+[files] an array of filenames containing the tests
+[path] a path containing the files containing the tests
 
 In addition, all of the following keys should be defined:
 
-[+testify.version+] An array of integers representing this version of Testify
-[+testify.errors+] The error stream.
-[+testify.output+] The output stream.
-[+hooks+] A hash of callbacks - see below.
+[testify.version] An array of integers representing this version of Testify
+[testify.errors] The error stream.
+[testify.output] The output stream.
+[hooks] A hash of callbacks - see below.
 
 Given that Testify is still at a fairly early stage of development, it is not
 unlikely that more required keys may be added later.
