@@ -97,6 +97,10 @@ Like the +env+ hash, it is not unlikely that more hooks may be added later.
   bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
 
+== Dependencies
+
+* Classy: aliases and other class extensions
+
 == Copyright
 
 Copyright (c) 2009 John Hyland. See LICENSE for details.
