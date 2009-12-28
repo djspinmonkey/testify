@@ -2,6 +2,68 @@
 
 Testify is a test framework framework.  Think "Rack for testing."
 
+== Overview
+
+Like Rack, Testify is typically going to be run as a stack of applications that
+implement a +call+ method.  In typical usage, the stack will be assembled by a
+Runner and consist of a Framework and optionally some middleware, but this
+isn't a requirement.
+
+== Testify Applications
+
+A Testify Application is any object that implements a +call+ method accepting a
+single argument.  The one argument will be a hash (canonically called env), and
+the return value should be an array containing a header, a footer, and an array
+of TestResult objects.
+
+=== The +env+ Hash
+
+The +env+ hash should be an instance of Hash with one of the following keys
+defined:
+
+* +files+: an array of filenames containing the tests
+* +path+: a path containing the files containing the tests
+
+In addition, all of the following keys should be defined:
+
+* +testify.version+: An array of integers representing this version of Testify
+* +testify.errors+: The error stream.
+* +testify.output+: The output stream.
+* +hooks+: A hash of callbacks - see below.
+
+Given that Testify is still at a fairly early stage of development, it is not
+unlikely that more required keys may be added later.
+
+=== Middleware
+
+Middleware will generally either modify the env hash before the framework gets
+it (eg, to execute only a subset of tests), or modify the TestResult objects on
+the way back out (eg, to colorize the result text).  If you want to respond to
+a particular event as it happens (eg, send a Growl notification when a test
+fails), it is probably best to do this by adding a hook rather than looking at
+the TestResult objects, since you won't see them until all the tests are
+finished running.
+
+=== Frameworks
+
+A Framework object is generally responsible for actually running the tests and
+generating TestResult objects.
+
+=== Hooks
+
+TODO: Document this.
+
+== Open Questions
+
+Testify is still at an extremely early stage in development, and there are
+still a few design decisions that need to be made.  For example:
+
+* *Should files be broken out in to tests before going in to env?*  It
+  would be awfully nice if middleware could get at individual tests without
+  having to parse files.  On the other hand, parsing those files is going to be
+  very framework-specific, and it may not be clear what is and isn't a test -
+  think Cucumber.
+
 == Note on Patches/Pull Requests
  
 * Fork the project.
@@ -15,4 +77,4 @@ Testify is a test framework framework.  Think "Rack for testing."
 
 == Copyright
 
-Copyright (c) 2009 John Hyland and Emily Price. See LICENSE for details.
+Copyright (c) 2009 John Hyland. See LICENSE for details.
