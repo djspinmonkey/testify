@@ -20,7 +20,7 @@ describe "Testify::Runner" do
 
   it "should be able to be subclassed" do
     lambda {
-      class AnotherTesterApp < Testify::Runner
+      class AnotherTestRunner < Testify::Runner
       end
     }.should_not raise_error
   end
