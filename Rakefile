@@ -9,7 +9,7 @@ begin
     #gem.description = %Q{TODO: longer description of your gem}
     gem.email = "github@djspinmonkey.com"
     gem.homepage = "http://github.com/djspinmonkey/testify"
-    gem.authors = ["John Hyland", "Emily Price"]
+    gem.authors = ["John Hyland"]
     gem.add_dependency "classy", ">= 1.0.0"
     gem.add_development_dependency "rspec", ">= 1.2.9"
     # gem is a Gem::Specification... see http://www.rubygems.org/read/chapter/20 for additional settings
