@@ -47,22 +47,36 @@ finished running.
 === Frameworks
 
 A Framework object is generally responsible for actually running the tests and
-generating TestResult objects.
+generating TestResult objects.  Generally, Frameworks should inherit from
+Testify::Framework::Base and should have at least one alias in order to benefit
+from all of Testify's built-in functionality, but neither of these is a
+requirement.  (See the Aliasable module in the Classy gem for a more thorough
+description of aliases.  http://github.com/djspinmonkey/classy)
 
 === Hooks
 
-TODO: Document this.
+env['hooks'] is a hash containing arrays of callable objects (usually Procs,
+but anything responding to +call+ will work) which will be called in specific
+circumstances.  The following keys are supported:
 
-== Open Questions
+[start]  Will be called before running any tests.  An array of Test objects
+         will be passed in.  A middleware app might use this hook instead of
+         simply running immediately if it needed access to individual tests
+         instead of just files, or if it needed to run after all other
+         middleware.  For example, if some other middleware later in the stack
+         were excluding some subset of tests from running, you might need to be
+         sure you were operating only on the tests that would actually be run.
+[done]   Will be called after running all tests.  An array of TestResult
+         objects will be passed in.  Middleware setting this hook should
+         probably just work with the array of TestResults returned from calling
+         the next Testify app on the stack instead, unless it needs to run
+         before the results pass through any other middleware.  Note that there
+         is no guarantee another hook may not be added prior to yours, however.
+[status] Points to a hash containing Status objects as the keys, and arrays of
+         callable objects to be called whenever a TestResult is generated with
+         a given status.  The TestResult will be passed in.
 
-Testify is still at an extremely early stage in development, and there are
-still a few design decisions that need to be made.  For example:
-
-[Should files be broken out in to tests before going in to env?]
-  It would be awfully nice if middleware could get at individual tests without
-  having to parse files.  On the other hand, parsing those files is going to be
-  very framework-specific, and it may not be clear what is and isn't a test -
-  think Cucumber.
+Like the +env+ hash, it is not unlikely that more hooks may be added later.
 
 == Note on Patches/Pull Requests
  
