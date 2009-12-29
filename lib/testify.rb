@@ -4,7 +4,6 @@ require 'classy'
 # Make sure we're grabbing the right version of everything.
 $LOAD_PATH.unshift(File.dirname(__FILE__))
 
-require 'status'
 require 'framework'
 require 'runner'
 

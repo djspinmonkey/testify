@@ -61,6 +61,9 @@ from all of Testify's built-in functionality, but neither of these is a
 requirement.  (See the Aliasable module in the Classy gem for a more thorough
 description of aliases.  http://github.com/djspinmonkey/classy)
 
+At least initially, most Framework classes will likely be adaptors for existing
+test frameworks (RSpec, Test::Unit, etc).
+
 === Hooks
 
 env['hooks'] is a hash containing arrays of callable objects (usually Procs,
@@ -80,9 +83,10 @@ circumstances.  The following keys are supported:
          the next Testify app on the stack instead, unless it needs to run
          before the results pass through any other middleware.  Note that there
          is no guarantee another hook may not be added prior to yours, however.
-[status] Points to a hash containing Status objects as the keys, and arrays of
+[status] Points to a hash containing symbols as the keys, and arrays of
          callable objects to be called whenever a TestResult is generated with
-         a given status.  The TestResult will be passed in.
+         the status corresponding to that symbol.  The TestResult will be
+         passed in.
 
 Like the +env+ hash, it is not unlikely that more hooks may be added later.
 
