@@ -70,23 +70,29 @@ env['hooks'] is a hash containing arrays of callable objects (usually Procs,
 but anything responding to +call+ will work) which will be called in specific
 circumstances.  The following keys are supported:
 
-[start]  Will be called before running any tests.  An array of Test objects
-         will be passed in.  A middleware app might use this hook instead of
-         simply running immediately if it needed access to individual tests
-         instead of just files, or if it needed to run after all other
-         middleware.  For example, if some other middleware later in the stack
-         were excluding some subset of tests from running, you might need to be
-         sure you were operating only on the tests that would actually be run.
-[done]   Will be called after running all tests.  An array of TestResult
-         objects will be passed in.  Middleware setting this hook should
-         probably just work with the array of TestResults returned from calling
-         the next Testify app on the stack instead, unless it needs to run
-         before the results pass through any other middleware.  Note that there
-         is no guarantee another hook may not be added prior to yours, however.
-[status] Points to a hash containing symbols as the keys, and arrays of
-         callable objects to be called whenever a TestResult is generated with
-         the status corresponding to that symbol.  The TestResult will be
-         passed in.
+[before_all]  Will be called before running any tests.  An array of Test
+              objects will be passed in.  A middleware app might use this hook
+              instead of simply running immediately if it needed access to
+              individual tests instead of just files, or if it needed to run
+              after all other middleware.  For example, if some other
+              middleware later in the stack were excluding some subset of tests
+              from running, you might need to be sure you were operating only
+              on the tests that would actually be run.
+[after_all]   Will be called after running all tests.  An array of TestResult
+              objects will be passed in.  Middleware setting this hook should
+              probably just work with the array of TestResults returned from
+              calling the next Testify app on the stack instead, unless it
+              needs to run before the results pass through any other
+              middleware.  Note that there is no guarantee another hook may not
+              be added prior to yours, however.
+[before_each] Will be called before running each individual test.  A single
+              Test object will be passed in.  
+[after_each]  Will be called after running each individual test.  A single
+              TestResult object will be passed in.  
+[after_status] Points to a hash containing symbols as the keys, and arrays of
+              callable objects to be called whenever a TestResult is generated
+              with the status corresponding to that symbol.  The TestResult
+              will be passed in.
 
 Like the +env+ hash, it is not unlikely that more hooks may be added later.
 
