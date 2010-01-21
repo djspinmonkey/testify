@@ -90,9 +90,9 @@ circumstances.  The following keys are supported:
 [after_each]  Will be called after running each individual test.  A single
               TestResult object will be passed in.  
 [after_status] Points to a hash containing symbols as the keys, and arrays of
-              callable objects to be called whenever a TestResult is generated
-              with the status corresponding to that symbol.  The TestResult
-              will be passed in.
+               callable objects to be called whenever a TestResult is generated
+               with the status corresponding to that symbol.  The TestResult
+               will be passed in.
 
 Like the +env+ hash, it is not unlikely that more hooks may be added later.
 
