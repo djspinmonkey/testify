@@ -1,20 +1,23 @@
 module Testify
   class Runner
-    attr_accessor :status
+    extend Templatable
+
+    attr_accessor :status, :middleware
+    templatable_attr :framework
+
+    class << self; attr_accessor :framework_class; end
 
     def self.framework (fw = nil)
-      class_eval do
-        @@framework = Testify::Framework::Base.find(fw) if fw
-        @@framework
-      end
-    end
-
-    def framework
-      @@framework
+      self.framework = Testify::Framework::Base.find(fw) if fw
+      self.send(:class_variable_get, :@@framework)
     end
 
     def run
-      @status = Testify::Status::Passed.new("This is just a stub.")
+      @status = :stub
+      return
+      # actual stuff follows
+      env = {}
+      header, footer, @status, test_results = @framework.call( env )
     end
 
   end
