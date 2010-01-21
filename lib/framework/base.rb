@@ -6,7 +6,7 @@ module Testify
 
     # The default set of statuses
     #
-    DEFAULT_STATUSES = [ :passed, :pending, :failed, :error ].collect { |status| Testify::Status::Base.find(status) }
+    DEFAULT_STATUSES = [ :passed, :pending, :failed, :error ]
 
     # The class from which all Framework classes should inherit.  Keeps track
     # of all known frameworks and any aliases they're known by.  Framework
@@ -26,9 +26,8 @@ module Testify
         sub.class_eval { @statuses = Testify::Framework::DEFAULT_STATUSES.dup }
       end
 
-      # Gets and sets an array of Status objects corresponding to the possible
-      # TestResult statuses that might be set by this Framework.  Statuses may
-      # optionally be specified by their aliases.
+      # Gets and sets an array of symbols corresponding to the possible
+      # TestResult statuses that might be set by this Framework.
       #
       # For example, a framework with tests that can only pass or fail might
       # like like this:
@@ -38,11 +37,11 @@ module Testify
       #     ...
       #   end
       #
-      #   SomeFramework.statuses  # => [ Testify::Status::Passed, Testify::Status::Failed ]
+      #   SomeFramework.statuses  # => [ :passed, :failed ]
       #
       def self.statuses(*new_statuses)
         if new_statuses.any?
-          @statuses = new_statuses.collect { |status| Testify::Status::Base.find(status) }
+          @statuses = new_statuses
         end
         @statuses
       end
