@@ -9,6 +9,10 @@ describe "Testify::Runner" do
     destroy_class :SomeTestFramework
     class SomeTestFramework < Testify::Framework::Base
       aka :some_test_framework
+
+      def call ()
+        ['header', 'footer', :passed, []]
+      end
     end
 
     destroy_class :SomeTestRunner
@@ -55,8 +59,8 @@ describe "Testify::Runner" do
       @tester.run
     end
 
-    it "should have a status" do
-      @tester.status.should be_a_kind_of Testify::Status::Base
+    it "should have a non-nil status" do
+      @tester.status.should_not be_nil
     end
   end
 
