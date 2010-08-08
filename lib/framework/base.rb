@@ -45,6 +45,22 @@ module Testify
         end
         @statuses
       end
+
+      # Returns an array of absolute paths to each file defined by an +env+
+      # hash.  The default implementation either returns the array of files, if
+      # :files is defined in the hash, or returns every file found in a
+      # traversal of the path in the :path key.  Raises an exception if neither
+      # is defined, since that is not a valid +env+ hash.
+      #
+      # If a particular framework should only process particular files (eg,
+      # RSpec only wants .spec files), it should override this method
+      # appropriately.
+      #
+      def files (env) 
+        return env[:files] if env.include? :files
+        raise(ArgumentError, "env hash must include either :files or :path") unless env.include? :path
+        Dir.glob(File.join(env[:path], '**', '*'))
+      end
     end
   end
 end
