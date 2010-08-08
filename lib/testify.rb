@@ -14,6 +14,23 @@ $LOAD_PATH.shift
 # specific to any single component.
 module Testify
 
+  # Provides some reasonable defaults to create a new env hash.  This method
+  # does not fill in :path or :files, so you'll need to explicitly specify one
+  # or the other.
+  #
+  def self.env_defaults
+    { :testify_errors => STDERR,
+      :testify_output => STDOUT,
+      :testify_version => Testify.version,
+      :testify_hooks => { :before_all => [], 
+                          :after_all => [], 
+                          :before_each => [], 
+                          :after_each => [], 
+                          :after_status => Hash.new { |hash, status| hash[status] = [] } 
+                        }
+    }
+  end
+
   # Returns the current version as an array.  (Eg, version 1.2.3 would be
   # returned as [1, 2, 3].)
   #
