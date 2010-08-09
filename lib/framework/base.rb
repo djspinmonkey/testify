@@ -53,7 +53,7 @@ module Testify
       # is defined, since that is not a valid +env+ hash.
       #
       # If a particular framework should only process particular files (eg,
-      # RSpec only wants .spec files), it should override this method
+      # RSpec only wants *_spec.rb files), it should override this method
       # appropriately.
       #
       def files (env) 
