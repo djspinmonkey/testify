@@ -10,16 +10,15 @@ describe "Testify::Runner" do
     class SomeTestFramework < Testify::Framework::Base
       aka :some_test_framework
 
-      def call ()
+      def call (env)
         ['header', 'footer', :passed, []]
       end
     end
 
-    destroy_class :SomeTestRunner
-    class SomeTestRunner < Testify::Runner
+    destroy_class :BlankRunner
+    class TestRunner < Testify::Runner
     end
-
-    @tester = SomeTestRunner.new
+    @runner = TestRunner.new
   end
 
   it "should be able to be subclassed" do
@@ -30,38 +29,42 @@ describe "Testify::Runner" do
   end
 
   it "should be able to specify a test framework by alias" do
-    class SomeTestRunner
+    class TestRunner
       framework :some_test_framework
     end
 
-    SomeTestRunner.framework.should eql SomeTestFramework
-    @tester.framework.should        eql SomeTestFramework
+    TestRunner.framework.should eql SomeTestFramework
+    @runner.framework.should     eql SomeTestFramework
   end
 
   it "should be able to specify a test framework by class" do
-
-    class SomeTestRunner
+    class TestRunner
       framework SomeTestFramework
     end
 
-    SomeTestRunner.framework.should eql SomeTestFramework
-    @tester.framework.should        eql SomeTestFramework
+    TestRunner.framework.should eql SomeTestFramework
+    @runner.framework.should     eql SomeTestFramework
   end
 
   context "just created" do
     it "should have a nil status" do
-      @tester.status.should be_nil
+      @runner.status.should be_nil
     end
   end
 
-  context "after running" do
+  context "with a test framework defined" do
     before do
-      @tester.run
+      @runner.framework = SomeTestFramework
     end
 
-    it "should have a non-nil status" do
-      @tester.status.should_not be_nil
+    context "after running" do
+      before do
+        @runner.run
+      end
+
+      it "should have the overall status returned by the next app on the stack" do
+        @runner.status.should equal :passed
+      end
     end
   end
-
 end

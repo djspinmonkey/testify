@@ -13,11 +13,9 @@ module Testify
     end
 
     def run
-      @status = :stub
-      return
-      # actual stuff follows
+      @framework_instance ||= @framework.new
       env = {}
-      header, footer, @status, test_results = @framework.call( env )
+      header, footer, @status, test_results = @framework_instance.call( env )
     end
 
   end
