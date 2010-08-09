@@ -9,8 +9,10 @@ describe "Testify::Runner" do
     destroy_class :SomeTestFramework
     class SomeTestFramework < Testify::Framework::Base
       aka :some_test_framework
+      attr_accessor :env
 
       def call (env)
+        @env = env
         ['header', 'footer', :passed, []]
       end
     end
@@ -44,6 +46,15 @@ describe "Testify::Runner" do
 
     TestRunner.framework.should eql SomeTestFramework
     @runner.framework.should     eql SomeTestFramework
+  end
+
+  context "#run" do
+    it "should accept options and put them in the env hash" do
+      framework = SomeTestFramework.new
+      @runner.framework_instance = framework
+      @runner.run :foo => 'bar'
+      framework.env[:foo].should == 'bar'
+    end
   end
 
   context "just created" do
