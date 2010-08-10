@@ -60,6 +60,12 @@ module Testify
       self.send(:class_variable_get, :@@framework)
     end
 
+    # Allows the framework to be specified on an instance of Runner.
+    #
+    def framework= (fw)
+      @framework = Testify::Framework::Base.find(fw)
+    end
+
     def run ( options = {} )
       @framework_instance ||= framework.new
       env = Testify.env_defaults.merge options
