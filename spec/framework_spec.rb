@@ -41,17 +41,18 @@ describe "Testify::Framework" do
   context '#files' do
     before do 
       @test_path = File.join(File.dirname(__FILE__), "sample_tests")
-      @all_files = [ File.join(@test_path, "fail.spec"), File.join(@test_path, "pass.spec") ]
+      test_files = ['fail_spec.rb', 'pass_spec.rb', 'spec_helper.rb']
+      @test_paths = test_files.collect { |f| File.join(File.dirname(__FILE__), 'sample_tests', f) }
     end
 
     it "should find files specified by :path" do
       env = { :path => @test_path }
-      @framework.files(env).sort.should eql @all_files
+      @framework.files(env).sort.should eql @test_paths
     end
 
     it "should find files specified by :files" do
-      env = { :files => @all_files }
-      @framework.files(env).sort.should eql @all_files
+      env = { :files => @test_paths }
+      @framework.files(env).sort.should eql @test_paths
     end
 
     it "should raise an ArgumentError if neither :files nor :path is defined" do
