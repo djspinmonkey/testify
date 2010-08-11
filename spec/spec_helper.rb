@@ -3,7 +3,6 @@ require 'spec'
 require 'spec/autorun'
 
 Spec::Runner.configure do |config|
-  
 end
 
 # Doesn't work for anything inside a module (eg, if you try to remove
