@@ -41,7 +41,7 @@ describe "Testify::Framework" do
   context '#files' do
     before do 
       @test_path = File.join(File.dirname(__FILE__), "sample_tests")
-      test_files = ['fail_spec.rb', 'pass_spec.rb', 'spec_helper.rb']
+      test_files = ['fail_spec.rb', 'mixed_spec.rb', 'pass_spec.rb', 'spec_helper.rb']
       @test_paths = test_files.collect { |f| File.join(File.dirname(__FILE__), 'sample_tests', f) }
     end
 
