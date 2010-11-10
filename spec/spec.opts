@@ -1,5 +1,1 @@
 -c
--fs
-spec
---pattern
-*_spec.rb
