@@ -41,18 +41,24 @@ describe "Testify::Framework" do
   context '#files' do
     before do 
       @test_path = File.join(File.dirname(__FILE__), "sample_tests")
-      test_files = ['fail_spec.rb', 'mixed_spec.rb', 'pass_spec.rb', 'spec_helper.rb']
+      all_files = ['failing_tests', 'mixed_tests', 'passing_tests', 'test_helper']
+      test_files = all_files - ['test_helper']
+      @all_paths  = all_files.collect  { |f| File.join(File.dirname(__FILE__), 'sample_tests', f) }
       @test_paths = test_files.collect { |f| File.join(File.dirname(__FILE__), 'sample_tests', f) }
+    end
+
+    after do
+      VanillaFramework.file_pattern nil
     end
 
     it "should find files specified by :path" do
       env = { :path => @test_path }
-      @framework.files(env).sort.should eql @test_paths
+      @framework.files(env).sort.should eql @all_paths
     end
 
     it "should find files specified by :files" do
-      env = { :files => @test_paths }
-      @framework.files(env).sort.should eql @test_paths
+      env = { :files => @all_paths }
+      @framework.files(env).sort.should eql @all_paths
     end
 
     it "should raise an ArgumentError if neither :files nor :path is defined" do
@@ -60,6 +66,15 @@ describe "Testify::Framework" do
       lambda { 
         @framework.files(env) 
       }.should raise_exception ArgumentError
+    end
+
+    it "should respect the .file_pattern setting" do
+      class VanillaFramework
+        file_pattern '*_tests'
+      end
+
+      env = { :path => @test_path }
+      @framework.files(env).sort.should eql @test_paths
     end
   end
 

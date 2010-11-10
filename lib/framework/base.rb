@@ -46,20 +46,31 @@ module Testify
         @statuses
       end
 
+      # Accepts a glob pattern that limits the paths returned by `#files`.
+      # Only paths with filenames that match this pattern will be returned.
+      #
+      def self.file_pattern (pattern)
+        self.class_eval { @file_pattern = pattern }
+      end
+
       # Returns an array of absolute paths to each file defined by an +env+
       # hash.  The default implementation either returns the array of files, if
       # :files is defined in the hash, or returns every file found in a
       # traversal of the path in the :path key.  Raises an exception if neither
       # is defined, since that is not a valid +env+ hash.
       #
-      # If a particular framework should only process particular files (eg,
-      # RSpec only wants *_spec.rb files), it should override this method
-      # appropriately.
+      # If a particular framework should only process files with names matching
+      # a particular pattern (eg, RSpec only wants files that match
+      # `*_spec.rb`), it should call the `file_pattern` class method.  If more
+      # complex file
+      # selection is required, it should override this method.
       #
       def files (env) 
         return env[:files] if env.include? :files
         raise(ArgumentError, "env hash must include either :files or :path") unless env.include? :path
-        Dir.glob(File.join(env[:path], '**', '*'))
+
+        file_glob = self.class.class_eval { @file_pattern } || '*'
+        Dir.glob(File.join(env[:path], '**', file_glob))
       end
     end
   end
