@@ -30,8 +30,6 @@ module Testify
     attr_accessor :status, :framework_instance, :test_results
     templatable_attr :framework
 
-    class << self; attr_accessor :framework_class; end
-
     # Defines and/or returns the framework to use.  This can be any class whose
     # instances are Testify apps, and an instance of this class will be placed
     # at the bottom of the Testify stack used by Runner#run.  Typically, this
