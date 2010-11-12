@@ -25,20 +25,13 @@ describe "Testify::Runner" do
     @test_path = File.expand_path(File.join(File.dirname(__FILE__), 'sample_tests'))
   end
 
-  it "should be able to be subclassed" do
-    lambda {
-      class AnotherTestRunner < Testify::Runner
-      end
-    }.should_not raise_error
-  end
-
   it "should be able to specify a test framework by alias" do
     class TestRunner
       framework :some_test_framework
     end
 
     TestRunner.framework.should eql SomeTestFramework
-    @runner.framework.should     eql SomeTestFramework
+    @runner.framework.should eql SomeTestFramework
   end
 
   it "should be able to specify a test framework by class" do
