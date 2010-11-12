@@ -21,6 +21,8 @@ describe "Testify::Runner" do
     class TestRunner < Testify::Runner
     end
     @runner = TestRunner.new
+
+    @test_path = File.expand_path(File.join(File.dirname(__FILE__), 'sample_tests'))
   end
 
   it "should be able to be subclassed" do

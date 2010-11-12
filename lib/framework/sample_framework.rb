@@ -21,9 +21,11 @@ module Testify
         results = []
 
         files(env).each do |file|
+          line_number = 0
           File.open(file).each_line do |line|
+            line_number += 1
             (status, message) = line.split(':')
-            results.push TestResult.new(:status => status.to_sym, :message => message)
+            results.push TestResult.new(:status => status.to_sym, :message => message, :file => file, :line => line_number)
           end
         end
 
