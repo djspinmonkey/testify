@@ -23,7 +23,7 @@ module Testify
         files(env).each do |file|
           File.open(file).each_line do |line|
             (status, message) = line.split(':')
-            results.push TestResult.new(status.to_sym, message)
+            results.push TestResult.new(:status => status.to_sym, :message => message)
           end
         end
 

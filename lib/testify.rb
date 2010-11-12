@@ -6,6 +6,7 @@ $LOAD_PATH.unshift(File.dirname(__FILE__))
 
 require 'framework'
 require 'runner'
+require 'test_result'
 
 # Put the LOAD_PATH back the way it was.
 $LOAD_PATH.shift
