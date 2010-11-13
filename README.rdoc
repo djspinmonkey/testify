@@ -117,4 +117,4 @@ Like the +env+ hash, it is not unlikely that more hooks may be added later.
 
 == Copyright
 
-Copyright (c) 2009 John Hyland. See LICENSE for details.
+Copyright (c) 2010 John Hyland. See LICENSE for details.
