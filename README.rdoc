@@ -21,8 +21,7 @@ http://rdoc.info/projects/djspinmonkey/testify, respectively.
 
 A Testify Application is any object that implements a +call+ method accepting a
 single argument.  The one argument will be a hash (canonically called env), and
-the return value should be an array containing a header, a footer, and an array
-of TestResult objects.
+the return value should be an array of TestResult objects.
 
 === The +env+ Hash
 
