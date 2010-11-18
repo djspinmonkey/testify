@@ -40,7 +40,7 @@ describe "Testify::Runner" do
     end
 
     TestRunner.framework.should eql SomeTestFramework
-    @runner.framework.should     eql SomeTestFramework
+    @runner.framework.should eql SomeTestFramework
   end
 
   context "#run" do
@@ -60,16 +60,17 @@ describe "Testify::Runner" do
 
   context "with a test framework defined" do
     before do
-      @runner.framework = SomeTestFramework
+      @runner.framework = SampleFramework
     end
 
     context "after running" do
       before do
-        @runner.run
+        test_path = File.join(File.dirname(__FILE__), "sample_tests")
+        @runner.run :path => test_path
       end
 
-      it "should have the overall status returned by the next app on the stack" do
-        @runner.status.should equal :passed
+      it "should have a status" do
+        @runner.status.should_not be_nil
       end
     end
   end

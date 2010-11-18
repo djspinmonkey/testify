@@ -1,4 +1,5 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'testify')
+require File.expand_path(File.join(File.dirname(__FILE__), 'sample_framework'))
 require 'spec'
 require 'spec/autorun'
 
