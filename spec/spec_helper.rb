@@ -1,9 +1,8 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'testify')
 require File.expand_path(File.join(File.dirname(__FILE__), 'sample_framework'))
-require 'spec'
-require 'spec/autorun'
+require 'rspec'
 
-Spec::Runner.configure do |config|
+RSpec.configure do |config|
 end
 
 # Doesn't work for anything inside a module (eg, if you try to remove
