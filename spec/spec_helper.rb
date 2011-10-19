@@ -1,5 +1,6 @@
 require File.join(File.dirname(__FILE__), '..', 'lib', 'testify')
-require File.expand_path(File.join(File.dirname(__FILE__), 'sample_framework'))
+require_relative '../lib/testify'
+require_relative 'sample_framework'
 require 'rspec'
 
 RSpec.configure do |config|
