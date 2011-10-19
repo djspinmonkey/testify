@@ -1,6 +1,6 @@
 require File.expand_path(File.join(File.dirname(__FILE__), 'spec_helper'))
 
-describe "Testify::Runner" do
+describe "Testify::Runner::Base" do
 
   before :each do
     Testify::Framework::Base.forget_subclasses
@@ -18,7 +18,7 @@ describe "Testify::Runner" do
     end
 
     destroy_class :BlankRunner
-    class TestRunner < Testify::Runner
+    class TestRunner < Testify::Runner::Base
     end
     @runner = TestRunner.new
 
