@@ -9,10 +9,6 @@ implement a +call+ method.  In typical usage, the stack will be assembled by a
 Runner and consist of a Framework and optionally some middleware, but this
 isn't a requirement.
 
-Testify is hosted on gemcutter, so installation should be as simple as
-
-  sudo gem install testify
-
 The source and detailed documentation can be found at
 http://github.com/djspinmonkey/testify and
 http://rdoc.info/projects/djspinmonkey/testify, respectively.
@@ -34,12 +30,10 @@ defined:
 In addition, all of the following keys should be defined:
 
 [:testify_version] An array of integers representing this version of Testify
-[:testify_errors] The error stream.
-[:testify_output] The output stream.
 [:hooks] A hash of callbacks - see below.
 
-Given that Testify is still at a fairly early stage of development, it is not
-unlikely that more required keys may be added later.
+Given that Testify is still at a fairly early stage of development, it is quite
+possible that more required keys will be added later.
 
 === Middleware
 
@@ -48,13 +42,14 @@ it (eg, to execute only a subset of tests), or modify the TestResult objects on
 the way back out (eg, to colorize the result text).  If you want to respond to
 a particular event as it happens (eg, send a Growl notification when a test
 fails), it is probably best to do this by adding a hook rather than looking at
-the TestResult objects, since you won't see them until all the tests are
-finished running.
+the returned TestResult objects, since call() will not return until all the
+tests have finished running.
 
 === Frameworks
 
-A Framework object is generally responsible for actually running the tests and
-generating TestResult objects.  Generally, Frameworks should inherit from
+A Framework object is responsible for actually running the tests and generating
+TestResult objects.  Frameworks are required to respect all of the hooks
+described below.  Generally, Frameworks should inherit from
 Testify::Framework::Base and should have at least one alias in order to benefit
 from all of Testify's built-in functionality, but neither of these is a
 requirement.  (See the Aliasable module in the Classy gem for a more thorough
@@ -65,9 +60,9 @@ test frameworks (RSpec, Test::Unit, etc).
 
 === Hooks
 
-env['hooks'] is a hash containing arrays of callable objects (usually Procs,
+env[:hooks] is a hash containing arrays of callable objects (usually Procs,
 but anything responding to +call+ will work) which will be called in specific
-circumstances.  The following keys are supported:
+circumstances.  The following keys should supported:
 
 [:before_all]  Will be called before running any tests.  An array of Test
                objects will be passed in.  A middleware app might use this hook
@@ -95,9 +90,9 @@ circumstances.  The following keys are supported:
 
 If using the values provided by +Testify.env_defaults+, values for the first
 four keys will be initialized to empty arrays, and +:after_status+ will be
-initialized to a hash with a default value of a (new) empty array.
+initialized to an empty hash.
 
-Like the +env+ hash, it is not unlikely that more hooks may be added later.
+Like the +env+ hash, this is highly subject to change at this point.
 
 == Note on Patches/Pull Requests
  
@@ -109,10 +104,6 @@ Like the +env+ hash, it is not unlikely that more hooks may be added later.
   (if you want to have your own version, that is fine but
   bump version in a commit by itself I can ignore when I pull)
 * Send me a pull request. Bonus points for topic branches.
-
-== Dependencies
-
-* Classy: aliases and other class extensions
 
 == Copyright
 
