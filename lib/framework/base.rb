@@ -47,7 +47,8 @@ module Testify
       end
 
       # Accepts a glob pattern that limits the paths returned by `#files`.
-      # Only paths with filenames that match this pattern will be returned.
+      # Only paths with filenames that match this pattern will be returned by
+      # +.files+.
       #
       def self.file_pattern (pattern)
         self.class_eval { @file_pattern = pattern }
@@ -60,10 +61,8 @@ module Testify
       # is defined, since that is not a valid +env+ hash.
       #
       # If a particular framework should only process files with names matching
-      # a particular pattern (eg, RSpec only wants files that match
-      # `*_spec.rb`), it should call the `file_pattern` class method.  If more
-      # complex file
-      # selection is required, it should override this method.
+      # a particular glob pattern (eg, RSpec only wants files that match
+      # `*_spec.rb`), it can specify this with +file_pattern+.
       #
       def files (env) 
         return env[:files] if env.include? :files
