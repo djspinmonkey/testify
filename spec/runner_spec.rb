@@ -3,8 +3,19 @@ require_relative 'spec_helper'
 describe "Testify::Runner::Base" do
 
   before :each do
+    Testify::Middleware::Base.forget_aliases
     Testify::Framework::Base.forget_subclasses
     Testify::Framework::Base.forget_aliases
+
+    destroy_class :SomeMiddleware
+    class SomeMiddleware < Testify::Middleware::Base
+      aka :some_middleware
+    end
+
+    destroy_class :SomeMoreMiddleware
+    class SomeMoreMiddleware < Testify::Middleware::Base
+      aka :more_middleware
+    end
 
     destroy_class :SomeTestFramework
     class SomeTestFramework < Testify::Framework::Base
@@ -41,6 +52,15 @@ describe "Testify::Runner::Base" do
 
     TestRunner.framework.should eql SomeTestFramework
     @runner.framework.should eql SomeTestFramework
+  end
+
+  it "should be able to specify middleware by alias" do
+    class TestRunner
+      middleware :some_middleware, :more_middleware
+    end
+
+    TestRunner.middleware.should eql [SomeMiddleware, SomeMoreMiddleware]
+    @runner.middleware.should eql [SomeMiddleware, SomeMoreMiddleware]
   end
 
   context "#run" do
