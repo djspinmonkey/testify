@@ -21,15 +21,13 @@ module Testify
   # or the other.
   #
   def self.env_defaults
-    { :testify_errors => STDERR,
-      :testify_output => STDOUT,
-      :testify_version => Testify.version,
-      :testify_hooks => { :before_all => [], 
-                          :after_all => [], 
-                          :before_each => [], 
-                          :after_each => [], 
-                          :after_status => Hash.new { |hash, status| hash[status] = [] } 
-                        }
+    { :testify_version => Testify.version,
+      :hooks => { :before_all => [], 
+                  :after_all => [], 
+                  :before_each => [], 
+                  :after_each => [], 
+                  :after_status => {},
+                }
     }
   end
 

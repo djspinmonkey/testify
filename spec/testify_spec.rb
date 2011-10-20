@@ -6,12 +6,9 @@ describe "Testify" do
     it "should provide an env hash with some default values" do
       defaults = Testify.env_defaults
 
-      # Just check that these keys were defined
-      defaults.keys.should include( :testify_errors, :testify_output )
-
       # Verify the values on these ones
       defaults[:testify_version].should == Testify.version
-      defaults[:testify_hooks].should == { :before_all => [], :after_all => [], :before_each => [], :after_each => [], :after_status => {} }
+      defaults[:hooks].should == { :before_all => [], :after_all => [], :before_each => [], :after_each => [], :after_status => {} }
     end
   end
 
