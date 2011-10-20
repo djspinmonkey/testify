@@ -97,7 +97,6 @@ Like the +env+ hash, this is highly subject to change at this point.
 == TODO
 
 * Move away from Foo::Base classes and use Foo modules instead.
-* Put together some sample Runners, Frameworks, and Middleware.
 
 == Note on Patches/Pull Requests
  
