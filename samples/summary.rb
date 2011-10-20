@@ -1,6 +1,6 @@
 # Output a summary of the test results after they've all been run.
 #
-class Dots < Testify::Middleware::Base
+class Summary < Testify::Middleware::Base
   aka :summary
 
   def call( env )
