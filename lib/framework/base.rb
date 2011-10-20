@@ -21,7 +21,7 @@ module Testify
 
       # Annoying alias chain required to preserve inerited() methods from modules
       class << self; alias :old_inherited :inherited end
-      def self.inherited(sub) #:nodoc:
+      def self.inherited( sub ) #:nodoc:
         old_inherited(sub)
         sub.class_eval { @statuses = Testify::Framework::DEFAULT_STATUSES.dup }
       end
@@ -39,7 +39,7 @@ module Testify
       #
       #   SomeFramework.statuses  # => [ :passed, :failed ]
       #
-      def self.statuses(*new_statuses)
+      def self.statuses( *new_statuses )
         if new_statuses.any?
           @statuses = new_statuses
         end
@@ -50,7 +50,7 @@ module Testify
       # Only paths with filenames that match this pattern will be returned by
       # +.files+.
       #
-      def self.file_pattern (pattern)
+      def self.file_pattern( pattern )
         self.class_eval { @file_pattern = pattern }
       end
 
@@ -64,13 +64,40 @@ module Testify
       # a particular glob pattern (eg, RSpec only wants files that match
       # `*_spec.rb`), it can specify this with +file_pattern+.
       #
-      def files (env) 
+      def files( env )
         return env[:files] if env.include? :files
         raise(ArgumentError, "env hash must include either :files or :path") unless env.include? :path
 
         file_glob = self.class.class_eval { @file_pattern } || '*'
         Dir.glob(File.join(env[:path], '**', file_glob))
       end
+
+      # Run all the appropriate hooks before running any tests at all.
+      #
+      def run_before_all_hooks( env )
+        env[:hooks][:before_all].each { |hook| hook.call }
+      end
+
+      # Run all the appropriate hooks before running each test.
+      #
+      def run_before_each_hooks( env )
+        env[:hooks][:before_each].each { |hook| hook.call }
+      end
+
+      # Run all the appropriate hooks after running all the tests
+      #
+      def run_after_all_hooks( env, results )
+        env[:hooks][:after_all].each { |hook| hook.call(results) }
+      end
+
+      # Run all the appropriate hooks after running each test individually
+      #
+      def run_after_each_hooks( env, result )
+        hooks = env[:hooks][:after_each]
+        hooks += env[:hooks][:after_status][result.status].to_a  # .to_a in case it's nil
+        hooks.each { |hook| hook.call(result) }
+      end
+
     end
   end
 end
