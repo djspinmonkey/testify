@@ -1,0 +1,9 @@
+This is a sample Testify-based setup.  The framework is called (imaginatively
+enough) AwesomeTestFramework - this is the same level as RSpec or minitest.
+The runner is called AwesomeRunner - think of the 'rspec' command or
+'autotest'.  And for flavor we've added some middleware to output valuable
+information while the tests run and append some footer text at the end.
+
+To see it in action, just run this:
+
+  ./awesome_runner.rb awesome_tests

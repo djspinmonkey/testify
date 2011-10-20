@@ -1,0 +1,3 @@
+axioms should not be testable: pass
+goods should be fungible: pass
+this framework should be awesome: fail
