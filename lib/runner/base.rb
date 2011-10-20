@@ -94,13 +94,34 @@ module Testify
         @middleware = middleware.map { |mw| Testify::Middleware::Base.find(mw) }
       end
 
+      # Constructs the stack of middleware and framework.  If you are doing
+      # something unconventional (eg, creating middleware that requires
+      # additional initialization parameters), you may need to override this
+      # method.
+      #
+      def construct_app_stack
+        @framework_instance ||= framework.new
+        top_app = @framework_instance
+
+        middleware.each do |mw_class|
+          top_app = mw_class.new(top_app)
+        end
+
+        top_app
+      end
+
       # Run the tests.  Accepts a hash that will be merged in to the default env
       # and passed to the Testify app stack.
       #
       def run( options = {} )
-        @framework_instance ||= framework.new
+        top_app = construct_app_stack
+
         env = Testify.env_defaults.merge options
-        header, footer, @status, @test_results = @framework_instance.call( env )
+        @test_results = top_app.call(env)
+
+        @status = @test_results.collect(&:status).max  # XXX: Optimize?
+
+        @test_results
       end
 
     end

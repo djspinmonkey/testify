@@ -24,7 +24,7 @@ describe "Testify::Runner::Base" do
 
       def call (env)
         @env = env
-        ['header', 'footer', :passed, []]
+        [Testify::TestResult.new(:message => "Testing", :status => :pass)]
       end
     end
 
