@@ -3,7 +3,9 @@ require_relative 'awesome_test_framework'
 require_relative 'dots'
 require_relative 'summary'
 
-class AwesomeRunner < Testify::Runner::Base
+class AwesomeRunner
+  include Testify::Runner
+
   # Specify the framework we want to use.  This alias is defined in
   # AwesomeTestFramework.
   #
@@ -16,5 +18,11 @@ end
 
 # Instantiate the runner and run the tests.
 #
+tests_path = File.join(File.dirname(__FILE__), 'awesome_tests')
 @runner = AwesomeRunner.new
-results = @runner.run(:path => ARGV[0])
+results = @runner.run(:path => tests_path)
+
+#puts "#{results.size} tests run"
+#results.each do |res|
+#  puts "#{res.status} - #{res.message}"
+#end

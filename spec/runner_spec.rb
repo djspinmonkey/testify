@@ -1,24 +1,27 @@
 require_relative 'spec_helper'
 
-describe "Testify::Runner::Base" do
+describe "Testify::Runner" do
 
   before :each do
-    Testify::Middleware::Base.forget_aliases
-    Testify::Framework::Base.forget_subclasses
-    Testify::Framework::Base.forget_aliases
+    Testify::Middleware.forget_aliases
+    Testify::Framework.forget_aliases
 
     destroy_class :SomeMiddleware
-    class SomeMiddleware < Testify::Middleware::Base
+    class SomeMiddleware
+      include Testify::Middleware
       aka :some_middleware
     end
 
     destroy_class :SomeMoreMiddleware
-    class SomeMoreMiddleware < Testify::Middleware::Base
+    class SomeMoreMiddleware
+      include Testify::Middleware
       aka :more_middleware
     end
 
     destroy_class :SomeTestFramework
-    class SomeTestFramework < Testify::Framework::Base
+    class SomeTestFramework
+      include Testify::Framework
+
       aka :some_test_framework
       attr_accessor :env
 
@@ -28,8 +31,9 @@ describe "Testify::Runner::Base" do
       end
     end
 
-    destroy_class :BlankRunner
-    class TestRunner < Testify::Runner::Base
+    destroy_class :TestRunner
+    class TestRunner
+      include Testify::Runner
     end
     @runner = TestRunner.new
 

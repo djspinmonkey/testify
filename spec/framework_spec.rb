@@ -3,26 +3,24 @@ require_relative 'spec_helper'
 describe "Testify::Framework" do
 
   before :all  do
+    Testify::Framework.forget_aliases
+
     destroy_class :VanillaFramework
-    Testify::Framework::Base.forget_aliases
-    Testify::Framework::Base.forget_subclasses
-    class VanillaFramework < Testify::Framework::Base
+    class VanillaFramework 
+      include Testify::Framework
       aka :vanilla
     end
     @framework = VanillaFramework.new
   end
 
-  it "should know about all Framework classes" do
-    Testify::Framework::all().should include(VanillaFramework)
-  end
-
   it "should be able to specify known aliases" do
-    Testify::Framework::Base.find(:vanilla).should equal VanillaFramework
+    Testify::Framework.find(:vanilla).should equal VanillaFramework
   end
 
   it "should raise an ArgumentError if a given alias is already taken" do
     lambda {
-      class ThisIsTheRepeat < Testify::Framework::Base
+      class ThisIsTheRepeat 
+        include Testify::Framework
         aka :vanilla
       end
     }.should raise_error(ArgumentError)
@@ -30,7 +28,8 @@ describe "Testify::Framework" do
   end
 
   it "should be able to specify a status ranking without affecting other Frameworks" do
-    class ChangedFramework < Testify::Framework::Base
+    class ChangedFramework 
+      include Testify::Framework
       statuses :passed, :failed, :exploded
     end
 

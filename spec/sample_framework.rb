@@ -8,7 +8,9 @@
 #   pending:Need to implement cat napkins.
 #   success
 #
-class SampleFramework < Testify::Framework::Base
+class SampleFramework 
+  include Testify::Framework
+
   aka :sample
 
   # Run the tests.
@@ -21,7 +23,7 @@ class SampleFramework < Testify::Framework::Base
       File.open(file).each_line do |line|
         line_number += 1
         (status, message) = line.split(':')
-        results.push TestResult.new(:status => status.to_sym, :message => message, :file => file, :line => line_number)
+        results.push Testify::TestResult.new(:status => status.to_sym, :message => message, :file => file, :line => line_number)
       end
     end
 

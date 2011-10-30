@@ -1,6 +1,7 @@
 # A sample test framework built using Testify.
 #
-class AwesomeTestFramework < Testify::Framework::Base
+class AwesomeTestFramework
+  include Testify::Framework
 
   # Specify an alias for this framework.
   #

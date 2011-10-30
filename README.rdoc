@@ -96,7 +96,10 @@ Like the +env+ hash, this is highly subject to change at this point.
 
 == TODO
 
-* Move away from Foo::Base classes and use Foo modules instead.
+* Write adaptors for common test frameworks (rspec and minitest first, probably).
+* Write an autotest-like Runner
+* Write some useful middleware (growl notifications, colorized output, etc)
+* World domination!
 
 == Note on Patches/Pull Requests
  
