@@ -3,8 +3,8 @@ module Testify
     include Aliasable
 
     # By default, Testify middleware is initialized with only the next app on
-    # the stack.  If you override this, you may also need to override
-    # Runner.construct_app_stack.
+    # the stack.  If you override this in a way that changes the signature, you
+    # may also need to override Runner.construct_app_stack.
     #
     def initialize(app)
       @app = app

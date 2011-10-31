@@ -26,6 +26,8 @@ class Dots
     #
     env[:hooks][:after_all].push(lambda { |ignored| puts; puts })
 
+    # @app is defined by the default initializer for Middleware
+    #
     @app.call(env)
   end
 end
